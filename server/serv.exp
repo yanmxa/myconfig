@@ -1,0 +1,13 @@
+#!/usr/bin/expect -f
+set timeout 3
+set essh_serv [lindex $argv 0]  
+set essh_pwd [lindex $argv 1]  
+set serv [lindex $argv 2]
+set serv_pwd [lindex $argv 3]
+puts -------------------------------------------------------
+puts >>\ login\ into\ ${serv}
+puts -------------------------------------------------------
+spawn ssh ${essh_serv}
+expect "*assword*" {send "${essh_pwd}\r;"}
+expect "*Welcome to Alibaba Cloud Elastic Compute Service !*" {send "xssh ${serv}\n"}
+expect "*assword:*" {send "${serv_pwd}\r";interact}
