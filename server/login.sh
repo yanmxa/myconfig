@@ -10,6 +10,7 @@ names=()
 servers=()
 passwords=()
 ports=()
+
 while read line 
 do
 	name=`echo $line | awk '{print $1}'`
@@ -24,9 +25,7 @@ do
 	servers=(${servers[@]} $serv)
 	passwords=(${passwords[@]} $pass)
 	ports=(${ports[@]} $port)
-done<host.txt
-
-
+done<"`pwd`/host.txt"
 
 select option in ${names[@]}
 do
@@ -46,5 +45,5 @@ done
 # echo servers ${servers[index]}
 # echo port ${ports[index]}
 # echo pass ${passwords[index]}
-echo ">> login to ${names[index]} - ${servers[index]} - port ${ports[index]}"
+echo ">> login to ${names[index]}"
 expect -c 'spawn ssh '"${servers[index]} -p ${ports[index]}"'; expect "*assword*"; send '"${passwords[index]}\r"'; interact'
