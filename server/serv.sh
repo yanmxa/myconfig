@@ -18,14 +18,10 @@ if [ $# -ne 0 ]; then
 fi
 
 # 自定义机器
-serv1='root@150.109.127.160'
-pass1=')Mj=Eqy4P5.bRT'
+serv1=''
+pass1=''
 
-serv2='root@139.129.94.4'
-pass2='stgates.0.'
 
-serv3='dc_cbss@10.172.32.120'
-pass3='iQlO1oL@m0M'
 
 servers=(${servers[@]} $serv1 $serv2 $serv3)
 select option in ${servers[@]}; do
