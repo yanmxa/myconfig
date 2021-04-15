@@ -25,21 +25,27 @@ do
 	servers=(${servers[@]} $serv)
 	passwords=(${passwords[@]} $pass)
 	ports=(${ports[@]} $port)
-done<"`pwd`/host.txt"
+done<"`dirname $0`/host.txt"
 
 select option in ${names[@]}
 do
-	name=${option}
+	select_name=${option}
     break;
 done
 
 for index in "${!names[@]}"
 do
-	if [[ $name = ${names[index]} ]]
+	if [[ $select_name = ${names[index]} ]]
 	then 
 		break
 	fi
 done
+
+if [[ $select_name == '' ]]; then
+	echo ">> no server selected!"
+	exit 0
+fi
+
 
 # echo name ${names[index]}
 # echo servers ${servers[index]}

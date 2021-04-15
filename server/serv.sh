@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ##############################################################################################
-### create by : Yanmeng
+### create by : Meng Yan
 ### create time : 20190724
 ### usage : used to login service 
 ### arguments : 0 (first login) or other host name
@@ -20,8 +20,6 @@ fi
 # 自定义机器
 serv1=''
 pass1=''
-
-
 
 servers=(${servers[@]} $serv1 $serv2 $serv3)
 select option in ${servers[@]}; do

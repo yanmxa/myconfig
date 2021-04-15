@@ -1,4 +1,10 @@
 #!/usr/bin/expect -f
+##############################################################################################
+### create by : Meng Yan
+### create time : 20210414
+### usage : login with middle machine  
+### arguments : essh_server essh_password
+##############################################################################################
 set timeout 3
 set essh_serv [lindex $argv 0]  
 set essh_pwd [lindex $argv 1]  
