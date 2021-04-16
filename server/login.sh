@@ -52,4 +52,4 @@ fi
 # echo port ${ports[index]}
 # echo pass ${passwords[index]}
 echo ">> login to ${names[index]}"
-expect -c 'spawn ssh '"${servers[index]} -p ${ports[index]}"'; expect "*assword*"; send '"${passwords[index]}\r"'; interact'
+expect -c "spawn ssh ${servers[index]} -p ${ports[index]}; expect *assword*; send ${passwords[index]}\r; interact"

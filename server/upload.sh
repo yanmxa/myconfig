@@ -55,4 +55,4 @@ fi
 # echo port ${ports[index]}
 # echo pass ${passwords[index]}
 echo ">> upload to ${names[index]}"
-expect -c 'spawn scp '"-P ${ports[index]} -r $1 ${servers[index]}:$2"'; expect "*assword*"; send '"${passwords[index]}\r"'; interact'
+expect -c "spawn scp -P ${ports[index]} -r $1 ${servers[index]}:$2; expect *assword*; send ${passwords[index]}\r; interact"
