@@ -3,7 +3,10 @@
 ### create by : Meng Yan
 ### create time : 20210414
 ### usage : used to login service 
-### arguments : hosts.txt: name server password port
+### arguments : 
+### 	hosts.txt: name server password port
+###     $1: file or dir to be uploaded
+###     $2: target path 
 ### dependency : with middle virtual machine serv.exp
 ##############################################################################################
 names=()
