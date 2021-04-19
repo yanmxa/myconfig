@@ -11,6 +11,8 @@ servers=()
 passwords=()
 ports=()
 
+without_password="$1"
+
 while read line 
 do
 	name=`echo $line | awk '{print $1}'`
@@ -52,4 +54,9 @@ fi
 # echo port ${ports[index]}
 # echo pass ${passwords[index]}
 echo ">> login to ${names[index]}"
-expect -c "spawn ssh ${servers[index]} -p ${ports[index]}; expect *assword*; send ${passwords[index]}\r; interact"
+if [ "$without_password" = "" ]
+then
+  expect -c "spawn ssh ${servers[index]} -p ${ports[index]}; expect *assword*; send ${passwords[index]}\r; interact"
+else 
+  expect -c "spawn ssh ${servers[index]} -p ${ports[index]}; interact"
+fi
