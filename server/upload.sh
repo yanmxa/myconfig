@@ -28,7 +28,7 @@ do
 	servers=(${servers[@]} $serv)
 	passwords=(${passwords[@]} $pass)
 	ports=(${ports[@]} $port)
-done<"`dirname $0`/host.txt"
+done<"`dirname $0`/host"
 
 select option in ${names[@]}
 do
