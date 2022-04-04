@@ -12,7 +12,7 @@ essh_pwd=''
 # 目标机器
 # servers=(001 002 003)
 servers=()
-serv_pwd='OJh5ghqCDQ'
+serv_pwd='1231'
 if [ $# -ne 0 ]; then
   servers=(${servers[@]} $1)
 fi
