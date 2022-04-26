@@ -1,0 +1,11 @@
+# kubectl
+alias kg='kubectl get'
+alias k='kubectl'
+alias kd='kubectl describe'
+alias ke='kubectl explain'
+alias ka='kubectl apply'
+alias kc='kubectl config'
+alias ct="sh ~/myconfig/select/kube-context.sh"
+
+# ip
+alias myip="echo $(ifconfig |grep broadcast |awk '{print $2}')"
