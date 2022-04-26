@@ -41,8 +41,8 @@ if [[ $select_name == '' ]]; then
 fi
 
 echo ">> login to ${names[index]}"
-if [ "${passwords[index]}" == "" ]; then
-  expect -c "spawn ssh ${servers[index]} -p ${ports[index]}; interact"
+if [ "${passwords[index]}" == "-1" ]; then
+  expect -c "spawn ssh ${servers[index]} -p ${ports[index]}; interact"; 
 else
   expect -c "spawn ssh ${servers[index]} -p ${ports[index]}; expect *assword*; send ${passwords[index]}\r; interact"
 fi

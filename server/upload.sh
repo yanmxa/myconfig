@@ -48,5 +48,10 @@ fi
 # echo servers ${servers[index]}
 # echo port ${ports[index]}
 # echo pass ${passwords[index]}
-echo ">> upload to ${names[index]}"
-expect -c "spawn scp -P ${ports[index]} -r $1 ${servers[index]}:$2; expect *assword*; send ${passwords[index]}\r; interact"
+echo ">> upload to ${servers[index]}"
+
+if [[ "${passwords[index]}" == -1 ]]; then
+  scp -r $1 ${servers[index]}:$2
+else
+  expect -c "spawn scp -P ${ports[index]} -r $1 ${servers[index]}:$2; expect *assword*; send ${passwords[index]}\r; interact" 
+fi

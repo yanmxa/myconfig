@@ -1,6 +1,0 @@
-alias k='kubectl'
-alias kg='kubectl get'
-alias ka='kubectl apply'
-alias ke='kubectl explain'
-alias kd='kubectl describe'
-alias kc='kubectl config'
