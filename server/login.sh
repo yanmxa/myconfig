@@ -42,7 +42,7 @@ fi
 
 echo ">> login to ${names[index]}"
 if [ "${passwords[index]}" == "-1" ]; then
-  expect -c "spawn ssh ${servers[index]} -p ${ports[index]}; interact"; 
+  ssh -C ${servers[index]}; 
 else
   expect -c "spawn ssh ${servers[index]} -p ${ports[index]}; expect *assword*; send ${passwords[index]}\r; interact"
 fi
