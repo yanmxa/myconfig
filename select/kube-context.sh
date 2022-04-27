@@ -1,7 +1,7 @@
 #!/bin/bash
-TMPFILE=/tmp/tmp.kubecontext
+TMPFILE=/tmp/tmp.kubecontext.XXXX
 if [ ! -f ${TMPFILE} ]; then 
-  TMPFILE=$(mktemp /tmp/tmp.kubecontext) || exit 1
+  TMPFILE=$(mktemp ${TMPFILE}) || exit 1
 fi 
 
 kubectl config get-contexts > ${TMPFILE}
