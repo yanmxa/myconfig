@@ -1,0 +1,121 @@
+" Vim会自动检测到你的文件类型并为之载入相应的语法高亮.
+syntax enable
+" 开启语法识别
+syntax on
+"开启256分辨率,终端更好看
+set t_Co=256
+"配色方案,solarized很好看,可以google一下
+colorscheme solarized
+"如果你更喜欢不同语法下显示不同皮肤,比如我更喜欢写python时使用清爽的peachpuff
+autocmd Syntax python colorscheme peachpuff
+"配色背景dark,另一个选择是set background=light
+set background=dark
+"此项不会解释..但它会让vim在终端保持透明
+hi Normal ctermbg=NONE
+"设置gui下的字体Inconsolata-g, 字体大小12号,还可以这么写set guifont=Inconsolata-g\ 12
+set guifont=Inconsolata-g:h12
+"在Vim窗口的右下角显示一个完整的命令已经完成的部分
+set showcmd
+"编码,建议强制使用utf8
+set encoding=utf-8
+"告诉 vim，打开一个文件时,尝试 utf8,gbk..这几种编码
+set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbkgb2312,cp936
+"终端编码
+set termencoding=utf-8
+"用utf8编码打开文件
+set fileencoding=utf-8
+"关闭错误的时候发出声音
+set noeb
+"自动缩进
+set autoindent
+"按照C语言的语法，自动地调整缩进的长度
+set cindent
+"智能缩进:每一行都和前一行有相同的缩进量,
+"同时这种缩进形式能正确的识别出花括号,当遇到右花括号（}）,
+"则取消缩进形式。此外还增加了识别C语言关键字的功能。
+"如果一行是以#开头的(比如宏)，那么这种格式将会被特殊对待而不采用缩进格式
+set smartindent
+"文件中一个 <Tab> 占据的空格数
+set tabstop=4
+"一开始,插入的就是4个空格,此时一旦你再按下一次tab,这次的四个空格就会和上次的四个空格组合起来变成一个制表符
+set softtabstop=4
+"每一级自动缩进的空格数
+set shiftwidth=4
+"显示行号,关闭行号显示是set nonu
+set number
+"启用鼠标的使用
+set mouse=a
+"可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位）
+set selection=exclusive
+set selectmode=mouse,key
+"代码折叠
+set foldenable
+"手动折叠
+set foldmethod=manual
+set foldlevel=3
+"高亮显示匹配的括号
+set showmatch
+"匹配括号高亮的时间（单位是十分之一秒）
+set matchtime=1
+"代码补全
+set completeopt=preview,menu
+set autoread
+set cpt=.,w,b
+set guioptions-=T           " gvim隐藏工具栏
+set guioptions-=m           " gvim隐藏菜单栏
+filetype indent on           " 针对不同的文件类型采用不同的缩进格式
+filetype plugin on           " 针对不同的文件类型加载对应的插件
+filetype plugin indent on    " 启用自动补全
+:command -range=% R :call Runit() "自定义命令:R,运行:R命令会执行函数Runit()
+:command -range=% RP : call RunProject() "自定义命令:RP,编译C project(多个源文件)
+func! RunProject()  "C多个源文件编译函数
+    exec "w" 
+    if &filetype == 'c'
+        exec "!gcc *.c -o %<"
+        exec "! ./%<"
+    endif
+endfunc
+func! Runit()    "函数,根据不同的语言类型保存,编译,执行当前编辑文件
+     exec "w"
+     if &filetype == 'c'
+        exec "!gcc  % -o %<"
+        exec "! ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %<"  
+        exec "! ./%<"
+    elseif &filetype == 'java'
+        exec "!javac %"
+        exec "!java %<"
+    elseif &filetype == 'sql'
+        exec "w !mysql -uroot -ppasswd wc_test -t"
+        :%s/^/--
+    elseif &filetype == 'php'
+        exec "!php %"
+    elseif &filetype =='python'
+        exec "!python2 %"
+    elseif &filetype=='ruby'
+        exec "!ruby %"
+    elseif &filetype=='javascript'
+        exec "!js %"
+    elseif &filetype=='vimwiki'
+        exec "Vimwiki2HTML"
+    elseif &filetype=='sh'
+        exec "!sh %"
+    endif
+endfunc
+"映射ctrl+c和ctrl+v键为copy到系统剪贴板和从系统剪切板粘贴
+map <C-c> "+y 
+map <C-v> "+p
+autocmd Syntax python set list  "由于python中缩进很关键,所以对于python显示缩进
+autocmd Syntax python set listchars=tab:\-\-    "缩进符
+:command -range=% C : call Tinyc()   "C编程的时候使用tcc编译器快速测试
+func! Tinyc()
+    exec "w"
+    if &filetype == 'c'
+        exec "!tcc -run %"
+    endif
+endfunc
+"告诉vim使用vim的键盘而不是vi的
+set nocompatible
+"关闭启动时的救助贫困儿童的提示消息
+set shortmess=atI
