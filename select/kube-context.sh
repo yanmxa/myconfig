@@ -34,9 +34,7 @@ done
 
 
 if [[ $1 == "-d" ]]; then
-  echo ">> delete context: $select_name"
   kubectl config delete-context $select_name
 else
-  echo ">> switch context to: $select_name"
   kubectl config use-context $select_name
 fi
