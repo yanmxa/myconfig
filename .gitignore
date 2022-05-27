@@ -3,3 +3,4 @@ awsome-otp
 alias/private
 
 server/host
+select/kube-config
