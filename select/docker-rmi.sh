@@ -23,19 +23,19 @@ done <"${TMPFILE}"
 
 for (( i = 0; i < ${#images[@]}; i++ )); do
     if [[ "${images[$i]}" =~ "<none>" ]]; then
-      docker rmi "${image_names[$i]}:${image_ids[$i]}"
+      docker rmi "${image_names[$i]}:${image_tags[$i]}"
     fi
 done
 
 for (( i = 0; i < ${#images[@]}; i++ )); do
     if [[ $i == 0 ]]; then
-      echo "    ${images[$i]}" 
+      echo "    ${images[i]}" 
       continue
     fi
-    echo "$i) ${images[$i]}"
+    echo "$i) ${images[i]}"
 done
 read -t 50 -p "#? " index
-
-docker rmi "${image_names[$i]}:${image_ids[$i]}"
+echo "docker rmi ${image_names[$index]}:${image_tags[$index]}"
+docker rmi "${image_names[$i]}:${image_tags[$i]}"
 
 
