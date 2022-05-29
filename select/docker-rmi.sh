@@ -4,6 +4,8 @@ if [ ! -f ${TMPFILE} ]; then
   TMPFILE=$(mktemp ${TMPFILE}) || exit 1
 fi 
 
+docker images | grep none | awk '{ print $3; }' | xargs docker rmi 2> /dev/null
+
 docker images > ${TMPFILE}
 images=()
 image_names=()
@@ -20,8 +22,6 @@ while read line; do
   image_ids=(${image_ids[@]} "$image_id")
   image_tags=(${image_tags[@]} "$image_tag")
 done <"${TMPFILE}"
-
-docker images | grep none | awk '{ print $3; }' | xargs docker rmi 2> /dev/null
 
 for (( i = 0; i < ${#images[@]}; i++ )); do
     if [[ $i == 0 ]]; then
