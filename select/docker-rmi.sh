@@ -6,18 +6,24 @@ fi
 
 docker images > ${TMPFILE}
 images=()
+image_names=()
 image_ids=()
+image_tags=()
 
 while read line; do
-  image_info="$line"
+  image_name=$(echo $line | awk '{print $1}')
   image_id=$(echo $line | awk '{print $3}')
-  images=("${images[@]}" "$image_info")
+  image_tag=$(echo $line | awk '{print $2}')
+
+  images=("${images[@]}" "$line")
+  image_names=(${image_names[@]} "$image_name")
   image_ids=(${image_ids[@]} "$image_id")
+  image_tags=(${image_tags[@]} "$image_tag")
 done <"${TMPFILE}"
 
 for (( i = 0; i < ${#images[@]}; i++ )); do
     if [[ "${images[$i]}" =~ "<none>" ]]; then
-      docker rmi ${image_ids[$i]}
+      docker rmi "${image_names[$i]}:${image_ids[$i]}"
     fi
 done
 
@@ -30,5 +36,6 @@ for (( i = 0; i < ${#images[@]}; i++ )); do
 done
 read -t 50 -p "#? " index
 
-docker rmi ${image_ids[$index]}
+docker rmi "${image_names[$i]}:${image_ids[$i]}"
+
 
