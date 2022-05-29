@@ -21,11 +21,7 @@ while read line; do
   image_tags=(${image_tags[@]} "$image_tag")
 done <"${TMPFILE}"
 
-for (( i = 0; i < ${#images[@]}; i++ )); do
-    if [[ "${images[$i]}" =~ "<none>" ]]; then
-      docker rmi "${image_names[$i]}:${image_tags[$i]}"
-    fi
-done
+docker images | grep none | awk '{ print $3; }' | xargs docker rmi 2> /dev/null
 
 for (( i = 0; i < ${#images[@]}; i++ )); do
     if [[ $i == 0 ]]; then
