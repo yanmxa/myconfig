@@ -6,11 +6,16 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
+ 
+make: *** No rule to make target `all'.  Stop.
 
-# Make data base, printed on Fri May 27 09:16:06 2022
+
+# Make data base, printed on Sun May 29 16:14:31 2022
 
 # Variables
 
+# environment
+VSCODE_GIT_ASKPASS_MAIN = /Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -44,7 +49,7 @@ __CFBundleIdentifier = com.microsoft.VSCode
 # environment
 INFOPATH = /opt/homebrew/share/info:
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/4t/fhhxz9q56vd0mk9t7ytjpvbm0000gn/T/vscode-ipc-ccfad568-b8a9-4371-bb43-00e9a07063b2.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/4t/fhhxz9q56vd0mk9t7ytjpvbm0000gn/T/vscode-ipc-c9c0954f-cfb0-4c0d-8637-42a336a6aa50.sock
 # environment
 VSCODE_CWD = /Users/yanmeng/myconfig
 # environment
@@ -59,6 +64,8 @@ VSCODE_LOG_STACK = false
 ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# environment
+LS_COLORS = no=00:fi=00:di=01;34:ln=00;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=41;33;01:ex=00;32:*.cmd=00;32:*.exe=01;32:*.com=01;32:*.bat=01;32:*.btm=01;32:*.dll=01;32:*.tar=00;31:*.tbz=00;31:*.tgz=00;31:*.rpm=00;31:*.deb=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.lzma=00;31:*.zip=00;31:*.zoo=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.tb2=00;31:*.tz2=00;31:*.tbz2=00;31:*.avi=01;35:*.bmp=01;35:*.fli=01;35:*.gif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mng=01;35:*.mov=01;35:*.mpg=01;35:*.pcx=01;35:*.pbm=01;35:*.pgm=01;35:*.png=01;35:*.ppm=01;35:*.tga=01;35:*.tif=01;35:*.xbm=01;35:*.xpm=01;35:*.dl=01;35:*.gl=01;35:*.wmv=01;35:*.aiff=00;32:*.au=00;32:*.mid=00;32:*.mp3=00;32:*.ogg=00;32:*.voc=00;32:*.wav=00;32:*.patch=00;34:*.o=00;32:*.so=01;35:*.ko=01;31:*.la=00;33
 # environment
 SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.AA3rBep6vy/Listeners
 # automatic
@@ -94,25 +101,23 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
+MAKELEVEL := 0
+# environment
 XPC_FLAGS = 0x0
 # environment
 COLORTERM = truecolor
 # default
 MAKE = $(MAKE_COMMAND)
-# environment
-LC_TERMINAL = iTerm2
+# default
+MAKECMDGOALS := all
 # environment
 SHLVL = 3
-# environment
-TERM_SESSION_ID = w0t0p0:43B5A8AA-5026-41C8-A3D0-9C5825943DE0
 # default
 MAKE_VERSION := 3.81
 # environment
 USER = yanmeng
 # makefile
 .DEFAULT_GOAL := 
-# default
-MAKECMDGOALS := all
 # environment
 HOMEBREW_BOTTLE_DOMAIN = https://mirrors.ustc.edu.cn/homebrew-bottles/bottles
 # environment
@@ -122,7 +127,9 @@ LESS = -R
 # default
 MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
 # environment
-TERM_PROGRAM = iTerm.app
+VSCODE_GIT_ASKPASS_EXTRA_ARGS = --ms-enable-electron-run-as-node
+# environment
+TERM_PROGRAM = vscode
 # default
 .VARIABLES := 
 # environment
@@ -131,6 +138,8 @@ TMPDIR = /var/folders/4t/fhhxz9q56vd0mk9t7ytjpvbm0000gn/T/
 *F = $(notdir $*)
 # environment
 VSCODE_IPC_HOOK = /Users/yanmeng/Library/Application Support/Code/1.67.2-main.sock
+# environment
+VSCODE_GIT_ASKPASS_NODE = /Applications/Visual Studio Code.app/Contents/MacOS/Electron
 # makefile
 MAKEFLAGS = Rrqp
 # environment
@@ -138,11 +147,9 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-TERM_PROGRAM_VERSION = 3.4.15
+TERM_PROGRAM_VERSION = 1.67.2
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.10468094.10468104.D6769176-1455-4719-B484-A350B49E43A4
-# environment
-LC_TERMINAL_VERSION = 3.4.15
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.10468094.10468104.46EED506-472C-41D2-B1C3-1ED46EB06782
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
@@ -150,21 +157,17 @@ HOMEBREW_PREFIX = /opt/homebrew
 # automatic
 +F = $(notdir $+)
 # environment
-ITERM_SESSION_ID = w0t0p0:43B5A8AA-5026-41C8-A3D0-9C5825943DE0
-# environment
 HOMEBREW_REPOSITORY = /opt/homebrew
-# environment
-COLORFGBG = 15;0
 # environment
 __CF_USER_TEXT_ENCODING = 0x1F5:0x19:0x34
 # environment
 COMMAND_MODE = unix2003
+# environment
+GIT_ASKPASS = /Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
 # default
 MAKEFILES := 
 # automatic
 <F = $(notdir $<)
-# environment
-ITERM_PROFILE = Default
 # environment
 PAGER = less
 # environment
@@ -178,7 +181,7 @@ SUFFIXES :=
 # default
 .INCLUDE_DIRS = /usr/local/include
 # environment
-MAKELEVEL := 0
+VSCODE_GIT_IPC_HANDLE = /var/folders/4t/fhhxz9q56vd0mk9t7ytjpvbm0000gn/T/vscode-git-ecf0b32de6.sock
 # environment
 AUTOJUMP_ERROR_PATH = /Users/yanmeng/Library/autojump/errors.log
 # environment
@@ -188,7 +191,7 @@ TERM = xterm-256color
 # environment
 VSCODE_PID = 756
 # variable set hash-table stats:
-# Load=88/1024=9%, Rehash=0, Collisions=5/109=5%
+# Load=88/1024=9%, Rehash=0, Collisions=3/109=3%
 
 # Pattern-specific Variable Values
 
@@ -270,8 +273,6 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Fri May 27 09:16:06 2022
+# Finished Make data base on Sun May 29 16:14:31 2022
 
  
-make: *** No rule to make target `all'.  Stop.
-

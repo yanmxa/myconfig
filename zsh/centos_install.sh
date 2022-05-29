@@ -22,7 +22,7 @@ echo 'source /root/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggest
 echo '[[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh' >> ~/.zshrc
 echo 'autoload -U compinit && compinit -u' >> ~/.zshrc
 
-
+# echo 'source ~/myconfig/zsh/incr*.zsh' >> ~/.zshrc
 
 # sed -i 's/^plugins=(\(.*\)/plugins=(autojump zsh-autosuggestions zsh-syntax-highlighting \1/' ~/.zshrc
 # [[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh
