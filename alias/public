@@ -6,6 +6,6 @@ alias ke='kubectl explain'
 alias ka='kubectl apply'
 alias kc='kubectl config'
 alias ct="sh ~/myconfig/select/kube-context.sh"
-alias cf="sh ~/myconfig/select/kube-config.sh"
+alias ns="sh ~/myconfig/select/kube-namespace.sh"
 alias rmi="sh ~/myconfig/select/docker-rmi.sh"
-
+/root/myconfig/select
