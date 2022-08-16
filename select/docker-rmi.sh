@@ -5,6 +5,7 @@ if [ ! -f ${TMPFILE} ]; then
 fi 
 
 docker images | grep none | awk '{ print $3; }' | xargs docker rmi 2> /dev/null
+docker images | grep <none> | awk '{ print $3; }' | xargs docker rmi 2> /dev/null
 
 docker images > ${TMPFILE}
 images=()
