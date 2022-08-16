@@ -32,8 +32,6 @@ for (( i = 0; i < ${#images[@]}; i++ )); do
     echo "$i) ${images[i]}"
 done
 read -t 50 -p "#? " index
-echo "docker rmi ${image_names[$index]}:${image_tags[$index]}"
-docker rmi ${image_names[$index]}:${image_tags[$index]}
-# echo "docker rmi ${image_ids[$index]}"
-# docker rmi "${image_ids[$index]}"
+echo "docker rmi ${image_names[$index]}:${image_tags[$index]}     ${image_ids[$index]}"
+docker rmi "${image_ids[$index]}"
 
