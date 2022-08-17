@@ -4,15 +4,15 @@ sudo yum install -y zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # zsh-autosuggestions
-git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
 
 # zsh-syntax-highlighting
-git clone git://github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
 # autojump
 cd ~/.oh-my-zsh/custom/plugins
-git clone git://github.com/joelthelion/autojump.git
+git clone https://github.com/joelthelion/autojump.git
 cd autojump
 python3 install.py 
 
@@ -31,7 +31,7 @@ echo 'autoload -U compinit && compinit -u' >> ~/.zshrc
 
 
 # install myconfig
-git clone git@github.com:yanmxa/myconfig.git $HOME/myconfig
+git clone https://github.com/yanmxa/myconfig.git $HOME/myconfig
 echo "source ~/myconfig/alias/public" >> ~/.zshrc
 
 # theme
