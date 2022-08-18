@@ -54,3 +54,13 @@ echo "source $HOME/myconfig/alias/public" >> ~/.zshrc
 
 echo "installing vim"
 sudo yum install vim -y
+
+sudo yum install make -y
+
+
+echo "install golang"
+wget https://storage.googleapis.com/golang/getgo/installer_linux
+chmod +x ./installer_linux
+./installer_linux 
+source ~/.zshrc
+rm -rf ./installer_linux
