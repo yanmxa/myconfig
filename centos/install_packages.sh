@@ -1,7 +1,7 @@
 
 
-echo "Installing gcc git wget jq"
-sudo yum install gcc git wget jq -y 
+# echo "Installing gcc git wget jq"
+# sudo yum install gcc git wget jq -y 
 
 echo "Installing python3"
 sudo dnf install python3
@@ -39,6 +39,7 @@ echo '[[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autoju
 echo 'autoload -U compinit && compinit -u' >> ~/.zshrc
 sed -i 's/^ZSH_THEME=\(.*\)/ZSH_THEME="lukerandall"/' ~/.zshrc # theme
 
+sudo dnf install util-linux-user -y
 chsh -s $(which zsh)
 
 # sed -i 's/^plugins=(\(.*\)/plugins=(autojump zsh-autosuggestions zsh-syntax-highlighting \1/' ~/.zshrc
@@ -48,7 +49,7 @@ chsh -s $(which zsh)
 
 # install myconfig
 echo "Installing myconfig alias"
-git clone https://github.com/yanmxa/myconfig.git $HOME/myconfig
+git clone https://github.com/yanmxa/myconfig.git $/HOMEmyconfig
 echo "source $HOME/myconfig/alias/public" >> ~/.zshrc
 
 echo "installing vim"
