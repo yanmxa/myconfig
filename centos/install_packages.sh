@@ -1,9 +1,25 @@
 #!/bin/bash
 
 # sudo su -
-# sudo yum install git -y 
+# sudo yum install git vim -y 
 # ssh-keygen -t rsa
+
+# # set root password
+# passwd root
+
+# # vim /etc/ssh/sshd_config
+# PermitRootLogin yes
+# PasswordAuthentication yes
+
+# service sshd reload
+
+# cp ~ec2-user/.ssh/authorized_keys ~root/.ssh/authorized_keys
+
+# # vim /etc/cloud/cloud.cfg
+# disable_root false
+
 # git clone git@github.com:yanmxa/myconfig.git
+
 
 sudo yum install make vim gcc wget jq -y 
 
@@ -42,19 +58,6 @@ echo "install succussfully"
 
 
 
-# # set root password
-# passwd root
-
-# # vim /etc/ssh/sshd_config
-# PermitRootLogin yes
-# PasswordAuthentication yes
-
-# service sshd reload
-
-# cp ~ec2-user/.ssh/authorized_keys ~root/.ssh/authorized_keys
-
-# # vim /etc/cloud/cloud.cfg
-# disable_root false
 
 
 
