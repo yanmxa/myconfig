@@ -1,16 +1,17 @@
+#!/bin/bash
 
-
-# echo "Installing gcc git wget jq"
-# sudo yum install gcc git wget jq -y 
+# sudo su -
+# sudo yum install make vim gcc git wget jq -y 
+# ssh-keygen -t rsa
+# git clone git@github.com:yanmxa/myconfig.git
 
 echo "Installing python3"
-sudo dnf install python3
+sudo dnf install python3 -y
 whereis python # 查看python文件路径
-# python: /usr/bin/python3.6 /usr/bin/python3.6m /usr/bin/python3.6-config /usr/bin/python3.6m-config /usr/bin/python3.6m-x86_64-config /usr/bin/python /usr/lib/python3.6 /usr/lib64/python3.6 /usr/local/lib/python3.6 /usr/include/python3.6m /usr/share/man/man1/python.1.gz
 ln -s /usr/bin/python3.6 /usr/bin/python # 做个软链接 
 
 echo "Installing docker"
-sudo yum remove -y docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux  docker-engine-selinux docker-engine 
+# sudo yum remove -y docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux  docker-engine-selinux docker-engine 
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo yum install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
@@ -49,18 +50,31 @@ chsh -s $(which zsh)
 
 # install myconfig
 echo "Installing myconfig alias"
-git clone https://github.com/yanmxa/myconfig.git $/HOMEmyconfig
+cd $HOME
+# git clone git@github.com:yanmxa/myconfig.git $HOME/myconfig
 echo "source $HOME/myconfig/alias/public" >> ~/.zshrc
 
-echo "installing vim"
-sudo yum install vim -y
+git config --global user.name myan
+git config --global user.email "myan@redhat.com"
 
-sudo yum install make -y
+echo "install succussfully"
 
 
-echo "install golang"
-wget https://storage.googleapis.com/golang/getgo/installer_linux
-chmod +x ./installer_linux
-./installer_linux 
-source ~/.zshrc
-rm -rf ./installer_linux
+
+# # set root password
+# passwd root
+
+# # update /etc/ssh/sshd_config
+# PermitRootLogin yes
+# PasswordAuthentication yes
+
+# service sshd reload
+
+# cp ~ec2-user/.ssh/authorized_keys ~root/.ssh/authorized_keys
+
+# # update /etc/cloud/cloud.cfg
+# disable_root false
+
+
+
+
