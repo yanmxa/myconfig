@@ -25,5 +25,6 @@ mv oc /usr/bin/oc
 rm oc.tar.gz -f
 rm README.md -f
 
+source ~/.zshrc
 echo "install KinD"
 go install sigs.k8s.io/kind@v0.12.0
