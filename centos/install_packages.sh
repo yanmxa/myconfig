@@ -1,9 +1,11 @@
 #!/bin/bash
 
 # sudo su -
-# sudo yum install make vim gcc git wget jq -y 
+# sudo yum install git -y 
 # ssh-keygen -t rsa
 # git clone git@github.com:yanmxa/myconfig.git
+
+sudo yum install make vim gcc wget jq -y 
 
 echo "Installing python3"
 sudo dnf install python3 -y
@@ -19,19 +21,22 @@ sleep 5
 sudo systemctl start docker
 sudo systemctl enable docker
 
-# sed -i 's/^plugins=(\(.*\)/plugins=(autojump zsh-autosuggestions zsh-syntax-highlighting \1/' ~/.zshrc
-# [[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh
-# autoload -U compinit && compinit -u
-# test: j --stat 
-
-# install myconfig
-echo "Installing myconfig alias"
-cd $HOME
 # git clone git@github.com:yanmxa/myconfig.git $HOME/myconfig
-echo "source $HOME/myconfig/alias/public" >> ~/.zshrc
-
 git config --global user.name myan
 git config --global user.email "myan@redhat.com"
+
+echo "install golang"
+wget https://dl.google.com/go/go1.18.4.linux-amd64.tar.gz
+sudo tar -C /usr/local/ -xvf go1.18.4.linux-amd64.tar.gz 
+sudo rm go1.18.4.linux-amd64.tar.gz
+
+echo "install kubectl and oc"
+wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
+tar xvzf oc.tar.gz
+mv kubectl /usr/bin/kubectl
+mv oc /usr/bin/oc
+rm oc.tar.gz -f
+rm README.md -f
 
 echo "install succussfully"
 
@@ -40,7 +45,7 @@ echo "install succussfully"
 # # set root password
 # passwd root
 
-# # update /etc/ssh/sshd_config
+# # vim /etc/ssh/sshd_config
 # PermitRootLogin yes
 # PasswordAuthentication yes
 
@@ -48,7 +53,7 @@ echo "install succussfully"
 
 # cp ~ec2-user/.ssh/authorized_keys ~root/.ssh/authorized_keys
 
-# # update /etc/cloud/cloud.cfg
+# # vim /etc/cloud/cloud.cfg
 # disable_root false
 
 
