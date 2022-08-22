@@ -4,7 +4,7 @@
 ## Step 1
 ```
 sudo su -
-sudo yum install git vim -y 
+sudo yum install git vim make -y 
 
 ssh-keygen -t rsa
 

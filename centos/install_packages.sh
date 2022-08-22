@@ -21,7 +21,7 @@
 # git clone git@github.com:yanmxa/myconfig.git
 
 
-sudo yum install make vim gcc wget jq -y 
+sudo yum install gcc wget jq -y 
 
 echo "Installing python3"
 sudo dnf install python3 -y
