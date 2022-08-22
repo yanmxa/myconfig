@@ -19,6 +19,7 @@ cd autojump
 ./install.py
 cd ..
 
+# update zshrc
 cd $HOME/myconfig
 mv ~/.zshrc ~/.zshrc.bak
 cp $HOME/myconfig/centos/.zshrc ~/.zshrc
