@@ -20,6 +20,7 @@ cd autojump
 cd ..
 
 cd $HOME/myconfig
+mv ~/.zshrc ~/.zshrc.bak
 cp $HOME/myconfig/centos/.zshrc ~/.zshrc
 source ~/.zshrc
 
