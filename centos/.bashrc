@@ -125,4 +125,4 @@ source "$OSH"/oh-my-bash.sh
 [[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh
 source /root/myconfig/alias/public
 export GOROOT=/usr/local/go
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/usr/local/go/bin
+export PATH=$PATH:/usr/local/go/bin
