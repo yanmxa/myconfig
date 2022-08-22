@@ -10,5 +10,5 @@ cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/autojump
 python3 install.py
 
 currentDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cp $currentDir/.zshrc ~/.zshrc
+cp ./.zshrc ~/.zshrc
 source ~/.zshrc
