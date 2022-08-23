@@ -1,12 +1,3 @@
-#!/bin/bash
-
-
-echo "Installing zsh"
-
-sudo yum install -y zsh
-sudo dnf install util-linux-user -y
-sudo chsh -s $(which zsh)
-sudo sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 
 
 # autosuggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
