@@ -40,7 +40,7 @@ if [[ $select_name == '' ]]; then
   exit 0
 fi
 
-echo ">> login to ${names[index]}"
+echo ">> login to ${names[index]}: ${servers[index]}"
 if [ "${passwords[index]}" == "-1" ]; then
   ssh -C ${servers[index]}; 
 else
