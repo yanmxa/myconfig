@@ -101,9 +101,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # autojump
-# [[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh
-# autoload -U compinit && compinit -u
 [[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh
+autoload -U compinit && compinit -u
 
 source $HOME/myconfig/alias/public
 export GOROOT=/usr/local/go

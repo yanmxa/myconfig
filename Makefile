@@ -1,5 +1,5 @@
 basic:
-	./centos/install_packages.sh
+	./centos/install_basic.sh
 
 .PHONY: bash
 bash:
