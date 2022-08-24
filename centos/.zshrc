@@ -106,5 +106,6 @@ autoload -U compinit && compinit -u
 
 source $HOME/myconfig/alias/public
 export GOROOT=/usr/local/go
+export GOBIN=/usr/local/go/bin
 export PATH=$PATH:/usr/local/go/bin
 
