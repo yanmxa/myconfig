@@ -1,0 +1,2 @@
+
+export PS1="%{$fg_bold[green]%} $1 %{$reset_color%}%B»%b "

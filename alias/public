@@ -8,3 +8,4 @@ alias kc='kubectl config'
 alias ct="sh ~/myconfig/select/kube-context.sh"
 alias ns="sh ~/myconfig/select/kube-namespace.sh"
 alias rmi="sh ~/myconfig/select/docker-rmi.sh"
+alias hint="source ~/myconfig/centos/.hint"

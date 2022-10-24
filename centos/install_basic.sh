@@ -16,6 +16,8 @@
 
 # git clone git@github.com:yanmxa/myconfig.git
 
+# 配置免密登录： ssh-copy-id -i ~/.ssh/id_rsa.pub user@ip
+
 
 sudo yum install gcc wget jq -y 
 
