@@ -9,3 +9,5 @@ alias ct="sh ~/myconfig/select/kube-context.sh"
 alias ns="sh ~/myconfig/select/kube-namespace.sh"
 alias rmi="sh ~/myconfig/select/docker-rmi.sh"
 alias hint="source ~/myconfig/centos/.hint"
+alias cats='pygmentize -g'
+alias catn='pygmentize -g -O style=colorful,linenos=1'

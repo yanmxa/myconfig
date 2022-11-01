@@ -52,11 +52,14 @@ mv oc /usr/bin/oc
 rm oc.tar.gz -f
 rm README.md -f
 
-echo "Installing zsh"
+echo "installing zsh"
 sudo yum install -y zsh
 sudo dnf install util-linux-user -y
 sudo chsh -s $(which zsh)
 sudo sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 
+
+echo "install pip3 install Pygments"
+sudo pip3 install Pygments
 
 echo "install succussfully"
 
