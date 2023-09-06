@@ -11,3 +11,4 @@ zsh:
 
 zsh-plugin:
 	./centos/install_zsh_plugin.sh
+
