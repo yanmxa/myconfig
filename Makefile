@@ -7,5 +7,5 @@ bash:
 
 .PHONY: myzsh
 myzsh:
-	./install.sh
+	./zsh/install.sh
 

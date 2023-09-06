@@ -1,5 +1,7 @@
 # zsh
 sudo yum install -y zsh
+# switch to zsh
+chsh -s `which zsh`
 # install ohmyzsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
