@@ -73,7 +73,7 @@ ZSH_THEME="lukerandall"
 plugins=(git zsh-autosuggestions autojump)
 
 # auto suggest
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#663399,standout"
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#663399,standout"
 
 source $ZSH/oh-my-zsh.sh
 
