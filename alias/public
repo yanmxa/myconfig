@@ -11,3 +11,6 @@ alias rmi="sh ~/myconfig/select/docker-rmi.sh"
 alias hint="source ~/myconfig/centos/.hint"
 alias cats='pygmentize -g'
 alias catn='pygmentize -g -O style=colorful,linenos=1'
+alias serv='sh ~/myconfig/server/login.sh'
+alias download='sh ~/myconfig/server/download.sh'
+alias upload='sh ~/myconfig/server/upload.sh'

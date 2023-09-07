@@ -108,6 +108,7 @@ source $ZSH/oh-my-zsh.sh
 autoload -U compinit && compinit -u
 
 source $HOME/myconfig/alias/public
+source $HOME/myconfig/alias/private
 export GOROOT=/usr/local/go
 export GOBIN=/usr/local/go/bin
 export PATH=$PATH:/usr/local/go/bin
