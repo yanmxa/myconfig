@@ -1,6 +1,7 @@
 
 
-yum install tmux
+sudo yum install http://galaxy4.net/repo/galaxy4-release-8-current.noarch.rpm
+sudo yum install tmux
 
 mv ~/.tmux.conf ~/.tmux.conf.bak
 

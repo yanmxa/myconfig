@@ -5,7 +5,7 @@
 ```bash
 yum update
 yum install gcc wget zsh yum-utils zlib-devel python-tools cmake git pkgconfig -y jq curl python3 vim --skip-broken
-yum groupinstall -y "Development Tools" --skip-broken
+sudo yum groupinstall -y "Development Tools" --skip-broken
 # whereis python 
 # 做个软链接 
 # ln -s /usr/bin/python3.6 /usr/bin/python 
