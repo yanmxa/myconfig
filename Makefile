@@ -1,11 +1,9 @@
-basic:
+centos-basic:
 	./centos/install_basic.sh
 
-.PHONY: bash
-bash:
-	./centos/install_bash.sh
+centos-tmux:
+	./centos/install_tmux.sh
 
-.PHONY: myzsh
-myzsh:
-	./zsh/install.sh
+centos-myzsh:
+	./centos/install_zsh.sh
 

@@ -1,25 +1,27 @@
+sudo yum install zsh -y
 
-# autosuggestions
+# install chsh
+sudo yum install util-linux-user -y
+sudo chsh -s $(which zsh) $(whoami)
+# sudo -u $(whoami) chsh -s $(which zsh)
+echo $SHELL
+#OR Logout and re-login
+
+# install zsh
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+echo "source ~/.bash_profile" >> ~/.zshrc
+
+
+# install plugins
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-# syntax highlighting
-# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+sed -i 's/plugins=(.*)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
 
-# install autojump
-git clone https://github.com/wting/autojump.git
-cd autojump
-./install.py
-cd ..
+# change theme
+sed -i 's/ZSH_THEME=".*"/ZSH_THEME="cloud"/' ~/.zshrc
 
-# update zshrc
-cd $HOME/myconfig
-mv ~/.zshrc ~/.zshrc.bak
-cp $HOME/myconfig/centos/.zshrc ~/.zshrc
+sudo echo  "source ~/.environment" >> ~/.zshrc
+
 source ~/.zshrc
-
-
-# echo "source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
-# echo "source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
-# echo '[[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh' >> ~/.zshrc
-# echo 'autoload -U compinit && compinit -u' >> ~/.zshrc
-# sed -i 's/^ZSH_THEME=\(.*\)/ZSH_THEME="lukerandall"/' ~/.zshrc # theme
 

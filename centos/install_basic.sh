@@ -18,15 +18,24 @@
 
 # 配置免密登录： ssh-copy-id -i ~/.ssh/id_rsa.pub user@ip
 
+# before:
 
-sudo yum install gcc wget jq -y 
+# sudo yum update && sudo yum install cmake git -y 
+# git clone https://github.com/yanmxa/myconfig.git
 
-echo "Installing python3"
-sudo dnf install python3 -y
-whereis python # 查看python文件路径
-ln -s /usr/bin/python3.6 /usr/bin/python # 做个软链接 
+# install basic tool
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Installing gcc wget jq curl >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+sudo yum install gcc wget jq curl vim -y 
+# yum install gcc wget git yum-utils cmake jq curl vim -y --skip-broken
 
-echo "Installing docker"
+# yum update
+
+# echo "Installing python3"
+# sudo yum install python3 -y
+# whereis python # 查看python文件路径
+# ln -s /usr/bin/python3.6 /usr/bin/python # 做个软链接 
+
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Installing docker >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 # sudo yum remove -y docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux  docker-engine-selinux docker-engine 
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
@@ -34,32 +43,53 @@ sudo yum install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 sleep 5
 sudo systemctl start docker
 sudo systemctl enable docker
+sudo chmod 666 /var/run/docker.sock
 
 # git clone git@github.com:yanmxa/myconfig.git $HOME/myconfig
-git config --global user.name myan
-git config --global user.email "myan@redhat.com"
+# git config --global user.name myan
+# git config --global user.email "myan@redhat.com"
 
-echo "install golang"
-wget https://dl.google.com/go/go1.18.4.linux-amd64.tar.gz
-sudo tar -C /usr/local/ -xvf go1.18.4.linux-amd64.tar.gz 
-sudo rm go1.18.4.linux-amd64.tar.gz
+go_version="${GO_VERSION:-go1.20.11}"
 
-echo "install kubectl and oc"
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Install golang: $go_version >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+wget https://dl.google.com/go/${go_version}.linux-amd64.tar.gz
+sudo rm -rf /usr/local/go && sudo tar -C /usr/local/ -xvf ${go_version}.linux-amd64.tar.gz 
+sudo rm ${go_version}.linux-amd64.tar.gz
+sudo echo  "export PATH=$PATH:/usr/local/go/bin" >> ~/.environment
+source ~/.environment
+
+go version
+
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Install kubectl and oc >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
 tar xvzf oc.tar.gz
-mv kubectl /usr/bin/kubectl
-mv oc /usr/bin/oc
-rm oc.tar.gz -f
-rm README.md -f
 
-echo "installing zsh"
-sudo yum install -y zsh
-sudo dnf install util-linux-user -y
-sudo chsh -s $(which zsh)
-sudo sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 
+sudo rm /usr/bin/kubectl
+sudo mv kubectl /usr/bin/kubectl
 
-echo "install pip3 install Pygments"
-sudo pip3 install Pygments
+sudo rm /usr/bin/oc
+sudo mv oc /usr/bin/oc
+
+sudo rm oc.tar.gz -f
+sudo rm README.md -f
+
+# echo "installing zsh"
+# sudo yum install -y zsh
+# sudo dnf install util-linux-user -y
+# sudo chsh -s $(which zsh)
+# sudo sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 
+
+# echo "install pip3 install Pygments"
+# sudo pip3 install Pygments
+
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Install KinD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+go install sigs.k8s.io/kind@v0.20.0
+sudo echo  "export PATH=$PATH:$(go env GOPATH)/bin" >> ~/.environment
+srouce ~/.environment
+kind version
+
+# add environemt to bash_profile
+sudo echo  "source ~/.environment" >> ~/.bash_profile
 
 echo "install succussfully"
 

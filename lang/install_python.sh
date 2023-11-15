@@ -10,3 +10,7 @@ tar xzf Python-3.11.3.tgz
 make
 make install
 python3 --version
+
+# whereis python 
+# 做个软链接 
+# ln -s /usr/bin/python3.6 /usr/bin/python 
