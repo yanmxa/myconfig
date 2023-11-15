@@ -21,7 +21,15 @@ sed -i 's/plugins=(.*)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 # change theme
 sed -i 's/ZSH_THEME=".*"/ZSH_THEME="cloud"/' ~/.zshrc
 
+
+
+
+# give 
 sudo echo  "source ~/.environment" >> ~/.zshrc
+
+
+
+
 
 source ~/.zshrc
 

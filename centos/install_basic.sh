@@ -63,15 +63,19 @@ go version
 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Install kubectl and oc >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
 tar xvzf oc.tar.gz
-
-sudo rm /usr/bin/kubectl
-sudo mv kubectl /usr/bin/kubectl
-
 sudo rm /usr/bin/oc
-sudo mv oc /usr/bin/oc
-
 sudo rm oc.tar.gz -f
 sudo rm README.md -f
+
+echo "This script will install kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl/) on your machine"
+if [[ "$(uname)" == "Linux" ]]; then
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.28.1/bin/linux/amd64/kubectl
+elif [[ "$(uname)" == "Darwin" ]]; then
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.28.1/bin/darwin/amd64/kubectl
+fi
+chmod +x ./kubectl
+sudo rm /usr/bin/kubectl
+sudo mv ./kubectl /usr/bin/kubectl
 
 # echo "installing zsh"
 # sudo yum install -y zsh
@@ -88,13 +92,16 @@ sudo echo  "export PATH=$PATH:$(go env GOPATH)/bin" >> ~/.environment
 srouce ~/.environment
 kind version
 
-# add environemt to bash_profile
-sudo echo  "source ~/.environment" >> ~/.bash_profile
+
+
+
+# hint
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Add hint  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+alias hint="source ~/myconfig/centos/.hint" >> "~/.environment"
 
 echo "install succussfully"
 
+# add environemt to bash_profile
+sudo echo  "source ~/.environment" >> ~/.bash_profile
 
-
-
-
-
+source ~/.environment
