@@ -92,13 +92,6 @@ sudo echo  "export PATH=$PATH:$(go env GOPATH)/bin" >> ~/.environment
 srouce ~/.environment
 kind version
 
-
-
-
-# hint
-echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Add hint  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-alias hint="source ~/myconfig/centos/.hint" >> "~/.environment"
-
 echo "install succussfully"
 
 # add environemt to bash_profile
