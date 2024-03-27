@@ -3,21 +3,24 @@
 # Install dependency
 sudo yum install libevent-devel -y
 sudo yum install ncurses-devel -y
+sudo yum install byacc -y
 
 # Install tmux
-wget https://github.com/tmux/tmux/releases/download/3.3a/tmux-3.3a.tar.gz
-tar xzvf tmux-3.3a.tar.gz
-cd tmux-3.3a
+wget https://github.com/tmux/tmux/releases/download/3.4/tmux-3.4.tar.gz
+tar xzvf tmux-3.4.tar.gz
+cd tmux-3.4
 ./configure
 make && sudo make install
 cd ..
-rm tmux-3.3a.tar.gz
+rm tmux-3.4.tar.gz
 
 # After installing
 mv ~/.tmux.conf ~/.tmux.conf.bak
 cp tmux/tmux.conf ~/.tmux.conf
+
 # clone tmux plgin
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 # Reload TMUX environment so TPM is sourced:
 # type this in terminal if tmux is already running
 tmux source ~/.tmux.conf

@@ -25,7 +25,7 @@
 
 # install basic tool
 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Installing gcc wget jq curl >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-sudo yum install gcc wget jq curl vim -y 
+sudo yum install gcc wget jq curl vim cmake git -y 
 # yum install gcc wget git yum-utils cmake jq curl vim -y --skip-broken
 
 # yum update
@@ -49,7 +49,7 @@ sudo chmod 666 /var/run/docker.sock
 # git config --global user.name myan
 # git config --global user.email "myan@redhat.com"
 
-go_version="${GO_VERSION:-go1.20.11}"
+go_version="${GO_VERSION:-go1.21.7}"
 
 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Install golang: $go_version >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 wget https://dl.google.com/go/${go_version}.linux-amd64.tar.gz
@@ -63,7 +63,8 @@ go version
 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Install kubectl and oc >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
 tar xvzf oc.tar.gz
-sudo rm /usr/bin/oc
+sudo mv ./oc /usr/bin/oc
+sudo rm ./oc
 sudo rm oc.tar.gz -f
 sudo rm README.md -f
 
@@ -87,7 +88,7 @@ sudo mv ./kubectl /usr/bin/kubectl
 # sudo pip3 install Pygments
 
 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Install KinD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-go install sigs.k8s.io/kind@v0.20.0
+go install sigs.k8s.io/kind@v0.22.0
 sudo echo  "export PATH=$PATH:$(go env GOPATH)/bin" >> ~/.environment
 srouce ~/.environment
 kind version
