@@ -14,3 +14,5 @@ alias catn='pygmentize -g -O style=colorful,linenos=1'
 alias serv='sh ~/myconfig/server/login.sh'
 alias download='sh ~/myconfig/server/download.sh'
 alias upload='sh ~/myconfig/server/upload.sh'
+# podman
+alias p='podman'

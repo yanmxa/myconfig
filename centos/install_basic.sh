@@ -1,5 +1,22 @@
 #!/bin/bash
 
+# create a user with root permission: https://docs.rackspace.com/docs/create-sudo-user-in-centos
+# centos server 
+adduser newuser
+passwd newuser
+
+visudo
+## Allow root to run any commands anywhere
+root    ALL=(ALL)       ALL
+newuser ALL=(ALL)       NOPASSWD:ALL
+
+# Verify permission change
+su - newuser
+sudo -i
+
+# macos client
+# 配置免密登录： ssh-copy-id -i ~/.ssh/id_rsa.pub newuser@host
+
 # sudo su -
 # sudo yum install git vim make -y 
 # ssh-keygen -t rsa
@@ -15,10 +32,6 @@
 # disable_root false
 
 # git clone git@github.com:yanmxa/myconfig.git
-
-# 配置免密登录： ssh-copy-id -i ~/.ssh/id_rsa.pub user@ip
-
-# before:
 
 # sudo yum update && sudo yum install cmake git -y 
 # git clone https://github.com/yanmxa/myconfig.git
@@ -64,7 +77,7 @@ echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Install kubectl and oc >>>>>>>>>>>>>>>>
 wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
 tar xvzf oc.tar.gz
 sudo mv ./oc /usr/bin/oc
-sudo rm ./oc
+sudo mv ./kubectl /usr/bin/kubectl
 sudo rm oc.tar.gz -f
 sudo rm README.md -f
 
@@ -90,12 +103,9 @@ sudo mv ./kubectl /usr/bin/kubectl
 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Install KinD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 go install sigs.k8s.io/kind@v0.22.0
 sudo echo  "export PATH=$PATH:$(go env GOPATH)/bin" >> ~/.environment
-srouce ~/.environment
+source ~/.environment
 kind version
 
 echo "install succussfully"
-
-# add environemt to bash_profile
-sudo echo  "source ~/.environment" >> ~/.bash_profile
 
 source ~/.environment

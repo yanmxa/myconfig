@@ -1,6 +1,8 @@
+sudo yum remove zsh
 sudo yum install zsh -y
 
 # install chsh
+# cat /etc/shells        -> deduplicated
 sudo yum install util-linux-user -y
 sudo chsh -s $(which zsh) $(whoami)
 # sudo -u $(whoami) chsh -s $(which zsh)
@@ -20,16 +22,8 @@ sed -i 's/plugins=(.*)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 # change theme
 sed -i 's/ZSH_THEME=".*"/ZSH_THEME="cloud"/' ~/.zshrc
-
-
-
-
 # give 
 sudo echo  "source ~/.environment" >> ~/.zshrc
-
-
-
-
 
 source ~/.zshrc
 
