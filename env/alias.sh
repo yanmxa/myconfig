@@ -1,12 +1,12 @@
-# kubectl
-alias kg='kubectl get'
-alias k='kubectl'
-alias kd='kubectl describe'
-alias ke='kubectl explain'
-alias ka='kubectl apply'
-alias kc='kubectl config'
-alias ct="sh ~/myconfig/select/kube-context.sh"
-alias ns="sh ~/myconfig/select/kube-namespace.sh"
+#!/bin/bash
+
+# ip
+alias myip="echo $(ifconfig |grep broadcast |awk '{print $2}')"
+
+# vpn
+alias vpn='otp token --prefix "6yhn\&UJM" --no-info && otp viscosity -o "ovpn-pek2-Alternative"'
+alias vpnb='otp token --prefix "6yhn\&UJM" --no-info && otp viscosity -o "Red Hat Global VPN (TCP Alternate)"'
+
 alias rmi="sh ~/myconfig/select/docker-rmi.sh"
 alias hint="source ~/myconfig/centos/.hint"
 alias cats='pygmentize -g'

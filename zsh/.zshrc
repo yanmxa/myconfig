@@ -107,8 +107,8 @@ source $ZSH/oh-my-zsh.sh
 [[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh
 autoload -U compinit && compinit -u
 
-source $HOME/myconfig/alias/public
-source $HOME/myconfig/alias/private
+source $HOME/myconfig/env/alias.sh
+source $HOME/myconfig/env/func.sh
 export GOROOT=/usr/local/go
 export GOBIN=/usr/local/go/bin
 export PATH=$PATH:/usr/local/go/bin
