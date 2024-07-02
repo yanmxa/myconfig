@@ -2,18 +2,18 @@
 
 # export FZF_DEFAULT_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
 
-ns() {
+function ns() {
   kubectl config set-context --current --namespace=$(kubectl get namespaces --output=jsonpath='{range .items[*]}{.metadata.name}{"\n"}'| fzf --info=inline --layout=reverse \
    --preview-window up:follow,80%,wrap \
    --preview 'kubectl get pods -n {1}' "$@"
   )
 }
 
-ct() {
+function ct() {
   kubectl config set-context --current --context=$(kubectl config get-contexts --output='name' | fzf)
 }
 
-exe() {
+function exe() {
     local pod
     pod=$(kubectl get po --no-headers -o custom-columns=":metadata.name" | fzf)
     local container
@@ -22,7 +22,7 @@ exe() {
     kubectl exec -it "$pod" -c "$container" -- /bin/bash
 }
 
-log() {
+function log() {
     local pod
     pod=$(kubectl get po --no-headers -o custom-columns=":metadata.name" | fzf)
     local container
@@ -32,14 +32,14 @@ log() {
     kubectl logs "$pod" -c "$container" 
 }
 
-logs() {
+function logs() {
   pod="$(kubectl get po |tail -n+2|fzf -n1 --tac --preview='kubectl logs --tail=20 --all-containers=true {1}' --preview-window=down:50%:hidden --bind=ctrl-p:toggle-preview --header="^P: Preview Logs"|awk '{print $1}')"
   if [[ -n $pod ]]; then
     kubectl logs --all-containers=true $pod
   fi
 }
 
-plogs(){
+function plogs(){
   export FZF_DEFAULT_COMMAND="kubectl get pods"
   fzf --info=inline --layout=reverse --header-lines=1 \
    --prompt "NS: $(kubectl config get-contexts | grep "*" | awk '{print $5}')> " \

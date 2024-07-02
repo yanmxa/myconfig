@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ip
-alias myip="echo $(ifconfig |grep broadcast |awk '{print $2}')"
+# alias myip="echo $(ifconfig |grep broadcast |awk '{print $2}')"
 
 # vpn
 alias vpn='otp token --prefix "6yhn\&UJM" --no-info && otp viscosity -o "ovpn-pek2-Alternative"'
