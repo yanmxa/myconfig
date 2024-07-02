@@ -1,14 +1,14 @@
 #!/bin/bash
 
-
 # export FZF_DEFAULT_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
 
-#select k8s namespace
 ns() {
-  kubectl config set-context --current --namespace=$(kubectl get namespaces --output=jsonpath='{range .items[*]}{.metadata.name}'| fzf )
+  kubectl config set-context --current --namespace=$(kubectl get namespaces --output=jsonpath='{range .items[*]}{.metadata.name}{"\n"}'| fzf --info=inline --layout=reverse \
+   --preview-window up:follow,80%,wrap \
+   --preview 'kubectl get pods -n {1}' "$@"
+  )
 }
 
-#select k8s namespace
 ct() {
   kubectl config set-context --current --context=$(kubectl config get-contexts --output='name' | fzf)
 }
@@ -35,7 +35,7 @@ log() {
 logs() {
   pod="$(kubectl get po |tail -n+2|fzf -n1 --tac --preview='kubectl logs --tail=20 --all-containers=true {1}' --preview-window=down:50%:hidden --bind=ctrl-p:toggle-preview --header="^P: Preview Logs"|awk '{print $1}')"
   if [[ -n $pod ]]; then
-    kubectl logs --all-containers=true "$pod"
+    kubectl logs --all-containers=true $pod
   fi
 }
 
