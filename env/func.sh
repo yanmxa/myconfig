@@ -28,18 +28,14 @@ function log() {
     local container
     container=$(kubectl get pods "$pod" -o jsonpath='{range .spec.containers[*]}{.name}{"\n"}{end}' | fzf )
     
-    # oc logs deploy/multiclusterhub-operator -n open-cluster-management
-    kubectl logs "$pod" -c "$container" 
+    if [ -z "$1" ]; then
+      kubectl logs "$pod" -c "$container"
+    else
+      kubectl logs "$1" "$pod" -c "$container"
+    fi
 }
 
-function logs() {
-  pod="$(kubectl get po |tail -n+2|fzf -n1 --tac --preview='kubectl logs --tail=20 --all-containers=true {1}' --preview-window=down:50%:hidden --bind=ctrl-p:toggle-preview --header="^P: Preview Logs"|awk '{print $1}')"
-  if [[ -n $pod ]]; then
-    kubectl logs --all-containers=true $pod
-  fi
-}
-
-function plogs(){
+function logs(){
   export FZF_DEFAULT_COMMAND="kubectl get pods"
   fzf --info=inline --layout=reverse --header-lines=1 \
    --prompt "NS: $(kubectl config get-contexts | grep "*" | awk '{print $5}')> " \
