@@ -82,3 +82,30 @@ pod() {
     --preview 'kubectl get pod {1} -oyaml' "$@"
     # --bind 'ctrl-/:change-preview-window(80%,border-bottom|80%,border-bottom,wrap|)' \
 }
+
+k() {
+  local args=("$@")
+
+  local resource=""
+  # Check if '{}' exists in the arguments
+  for arg in "${args[@]}"; do
+      if [ "$arg" = '{}' ]; then
+          resource="${args[i - 1]}"
+          break
+      fi
+  done
+
+  if [ "$resource" = "" ]; then 
+      # Set resource as the last parameter
+      resource=${args[-1]}
+      # Append '{}' to the arguments
+      args=("${args[@]}" '{}')
+  fi
+
+  local fzf_command="kubectl get pods"
+  if kubectl get "$resource" > /dev/null 2>&1; then
+    fzf_command="kubectl get $resource"
+  fi
+  
+  FZF_DEFAULT_COMMAND="$fzf_command" fzf --tmux 100%,60% --border horizontal --info=inline --layout=reverse | awk '{print $1}' | xargs -I {} kubectl "${args[@]}"
+}
