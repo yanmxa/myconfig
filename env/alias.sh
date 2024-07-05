@@ -16,3 +16,6 @@ alias download='sh ~/myconfig/server/download.sh'
 alias upload='sh ~/myconfig/server/upload.sh'
 # podman
 alias p='podman'
+
+alias vim=nvim
+alias vi=vi
