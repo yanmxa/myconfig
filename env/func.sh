@@ -39,27 +39,26 @@ function logs(){
   export FZF_DEFAULT_COMMAND="kubectl get pods"
   fzf --info=inline --layout=reverse --header-lines=1 \
    --prompt "NS: $(kubectl config get-contexts | grep "*" | awk '{print $5}')> " \
-   --header $'>> CTRL-L (open log in editor) || CTRL-R (refresh) || CTRL-/ (change view) <<\n\n' \
+   --header $'>> L (open log in editor) || R (refresh) || CTRL-/ (change view) <<\n\n' \
    --color ${ENV_FZF_COLOR} \
    --bind 'ctrl-/:change-preview-window(50%|80%)' \
-   --bind 'ctrl-l:execute:${EDITOR:-vim} <(kubectl logs --all-containers {1}) > /dev/tty' \
-   --bind 'ctrl-r:reload:$FZF_DEFAULT_COMMAND' \
+   --bind 'L:execute:${EDITOR:-vim} <(kubectl logs --all-containers {1}) > /dev/tty' \
+   --bind 'R:reload:$FZF_DEFAULT_COMMAND' \
    --preview-window up:follow,80%,wrap \
    --preview 'kubectl logs --follow --all-containers {1}' "$@"
 }
 
 pods() {
   FZF_DEFAULT_COMMAND="kubectl get pods --all-namespaces" \
-  fzf --info=inline --layout=reverse --header-lines=1 \
+  fzf --layout=reverse --tmux 100%,80% --header-lines=1 \
     --prompt "$(kubectl config current-context | sed 's/-context$//')> " \
-    --header "- Enter (exec) | ctrl-o (log) | CTRL-r (reload) | CTRL-d (describe) | CTRL-w (delete) | CTRL-t (tail)" \
-    --bind 'ctrl-/:change-preview-window(wrap|)' \
+    --header "- Enter (exec) | L (log) | R (reload) | D (describe) | W (delete) | T (tail)" \
     --bind 'enter:execute:kubectl exec -it --namespace {1} {2} -- sh > /dev/tty' \
-    --bind 'ctrl-o:execute:kubectl logs --all-containers --namespace {1} {2} | less' \
-    --bind 'ctrl-r:reload:eval $FZF_DEFAULT_COMMAND' \
-    --bind 'ctrl-d:execute:kubectl describe pod --namespace {1} {2} | less' \
-    --bind 'ctrl-w:execute:kubectl delete pod --namespace {1} {2}' \
-    --bind 'ctrl-t:execute:kubectl logs --follow --tail=0 --namespace {1} {2}' \
+    --bind 'L:execute:kubectl logs --all-containers --namespace {1} {2} | less' \
+    --bind 'R:reload:eval $FZF_DEFAULT_COMMAND' \
+    --bind 'D:execute:kubectl describe pod --namespace {1} {2} | less' \
+    --bind 'W:execute:kubectl delete pod --namespace {1} {2}' \
+    --bind 'T:execute:kubectl logs --follow --tail=0 --namespace {1} {2}' \
     --bind 'ctrl-/:change-preview-window(80%,border-bottom|80%,border-bottom,wrap|)' \
     --preview-window up:follow \
     --preview 'kubectl logs --follow --all-containers --tail=10000 --namespace {1} {2}' "$@"
@@ -67,7 +66,7 @@ pods() {
 
 pod() {
   FZF_DEFAULT_COMMAND="kubectl get pods" \
-  fzf --info=inline --layout=reverse --header-lines=1 \
+  fzf --layout=reverse --tmux 100%,60% --header-lines=1 \
     --prompt "> " \
     --header "- Enter (exec) |  Y (yaml) | | L (log) | R (reload) | D (describe) | W (delete) | T (tail)" \
     --bind 'enter:execute:kubectl exec -it {1} -- sh > /dev/tty' \
@@ -109,5 +108,5 @@ k() {
     fzf_command="kubectl get $resource"
   fi
   
-  FZF_DEFAULT_COMMAND="$fzf_command" fzf --tmux 100%,60% --layout=reverse --header-lines=1 | awk '{print $1}' | xargs -I {} kubectl "${args[@]}"
+  FZF_DEFAULT_COMMAND="$fzf_command" fzf --tmux 80%,60% --layout=reverse --header-lines=1 | awk '{print $1}' | xargs -I {} kubectl "${args[@]}"
 }
