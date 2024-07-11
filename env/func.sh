@@ -84,21 +84,23 @@ pod() {
 }
 
 k() {
+
   local args=("$@")
+  # local new_args=()
 
   local resource=""
-  # Check if '{}' exists in the arguments
+  local previous=""
   for arg in "${args[@]}"; do
       if [ "$arg" = '{}' ]; then
-          resource="${args[i - 1]}"
+          resource="$previous"
           break
       fi
+      previous=$arg
   done
 
   if [ "$resource" = "" ]; then 
       # Set resource as the last parameter
       resource=${args[-1]}
-      # Append '{}' to the arguments
       args=("${args[@]}" '{}')
   fi
 
@@ -107,5 +109,5 @@ k() {
     fzf_command="kubectl get $resource"
   fi
   
-  FZF_DEFAULT_COMMAND="$fzf_command" fzf --tmux 100%,60% --border horizontal --info=inline --layout=reverse | awk '{print $1}' | xargs -I {} kubectl "${args[@]}"
+  FZF_DEFAULT_COMMAND="$fzf_command" fzf --tmux 100%,60% --layout=reverse --header-lines=1 | awk '{print $1}' | xargs -I {} kubectl "${args[@]}"
 }
