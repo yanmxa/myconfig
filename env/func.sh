@@ -108,5 +108,5 @@ k() {
     fzf_command="kubectl get $resource"
   fi
   
-  FZF_DEFAULT_COMMAND="$fzf_command" fzf -layout=reverse --header-lines=1 | awk '{print $1}' | xargs -I {} kubectl "${args[@]}"
+  FZF_DEFAULT_COMMAND="$fzf_command" fzf --layout=reverse --header-lines=1 | awk '{print $1}' | xargs -I {} kubectl "${args[@]}"
 }
