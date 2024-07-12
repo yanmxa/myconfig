@@ -108,6 +108,7 @@ k() {
       previous=$arg
   done
 
+  # for the namespace
   if [ "$resource" = "" ]; then 
       # Set resource as the last parameter
       resource=${args[-1]}
