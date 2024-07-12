@@ -84,15 +84,26 @@ pod() {
 
 k() {
 
-  local args=("$@")
-  # local new_args=()
+  local args=("$@") # with namespace scope
+  local args_all=() # with global scope
 
   local resource=""
+  local all=false   # whether is it global resources
+
   local previous=""
   for arg in "${args[@]}"; do
       if [ "$arg" = '{}' ]; then
           resource="$previous"
-          break
+          args_all+=("\$0")
+      elif [ "$arg" = '-A' ]; then
+        all=true
+        if [ "$resource" = "" ]; then 
+          resource="$previous"
+          args_all+=("\$0")
+        fi
+        args_all+=("-n \$1") # replace the -A with -n namespace
+      else
+        args_all+=("$arg")
       fi
       previous=$arg
   done
@@ -107,6 +118,12 @@ k() {
   if kubectl get "$resource" > /dev/null 2>&1; then
     fzf_command="kubectl get $resource"
   fi
-  
-  FZF_DEFAULT_COMMAND="$fzf_command" fzf --layout=reverse --header-lines=1 | awk '{print $1}' | xargs -I {} kubectl "${args[@]}"
+
+  if $all; then 
+    # echo "kubectl ${args_all[*]}"
+    FZF_DEFAULT_COMMAND="$fzf_command -A" fzf --layout=reverse --header-lines=1 | awk '{print $2, $1}' | xargs -n 2 sh -c "kubectl ${args_all[*]}"
+    # FZF_DEFAULT_COMMAND="$fzf_command -A" fzf --layout=reverse --header-lines=1 | awk '{print $1, $2}' | xargs -n 2 sh -c 'echo namespace: $0, name: $1'
+  else
+    FZF_DEFAULT_COMMAND="$fzf_command" fzf --layout=reverse --header-lines=1 | awk '{print $1}' | xargs -I {} kubectl "${args[@]}"
+  fi
 }
