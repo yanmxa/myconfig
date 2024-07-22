@@ -17,7 +17,7 @@
 
 # 1. the otp command is from here: https://www.npmjs.com/package/awesome-otp
 # 2. init the vpn secret: otp init
-# 3. create/add the prefix/password to a file `echo "password" > ~/.otp_prefix`
+# 3. create/add the prefix to a file `echo "prefix" > ~/.otp_prefix`
 
 name="$1"
 if [ -z "$name" ]; then
