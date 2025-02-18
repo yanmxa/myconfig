@@ -48,36 +48,31 @@ sudo yum install gcc wget jq curl vim cmake git -y
 # whereis python # 查看python文件路径
 # ln -s /usr/bin/python3.6 /usr/bin/python # 做个软链接 
 
-echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Installing docker >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-# sudo yum remove -y docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux  docker-engine-selinux docker-engine 
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-sudo yum install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-sleep 5
-sudo systemctl start docker
-sudo systemctl enable docker
-sudo chmod 666 /var/run/docker.sock
+
+
+git clone https://github.com/yanmxa/myconfig.git
+cd myconfig
 
 # git clone git@github.com:yanmxa/myconfig.git $HOME/myconfig
 # git config --global user.name myan
 # git config --global user.email "myan@redhat.com"
 
-go_version="${GO_VERSION:-go1.21.7}"
+# go_version="${GO_VERSION:-go1.21.7}"
 
-echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Install golang: $go_version >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-wget https://dl.google.com/go/${go_version}.linux-amd64.tar.gz
-sudo rm -rf /usr/local/go && sudo tar -C /usr/local/ -xvf ${go_version}.linux-amd64.tar.gz 
-sudo rm ${go_version}.linux-amd64.tar.gz
-sudo echo  "export PATH=$PATH:/usr/local/go/bin" >> ~/.environment
-source ~/.environment
+# echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Install golang: $go_version >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+# wget https://dl.google.com/go/${go_version}.linux-amd64.tar.gz
+# sudo rm -rf /usr/local/go && sudo tar -C /usr/local/ -xvf ${go_version}.linux-amd64.tar.gz 
+# sudo rm ${go_version}.linux-amd64.tar.gz
+# sudo echo  "export PATH=$PATH:/usr/local/go/bin" >> ~/.environment
+# source ~/.environment
 
-go version
+# go version
 
 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Install kubectl and oc >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
 tar xvzf oc.tar.gz
 sudo mv ./oc /usr/bin/oc
-sudo mv ./kubectl /usr/bin/kubectl
+# sudo mv ./kubectl /usr/bin/kubectl
 sudo rm oc.tar.gz -f
 sudo rm README.md -f
 
@@ -100,12 +95,20 @@ sudo mv ./kubectl /usr/bin/kubectl
 # echo "install pip3 install Pygments"
 # sudo pip3 install Pygments
 
-echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Install KinD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-go install sigs.k8s.io/kind@v0.22.0
-sudo echo  "export PATH=$PATH:$(go env GOPATH)/bin" >> ~/.environment
-source ~/.environment
-kind version
+# echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Install KinD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+# go install sigs.k8s.io/kind@v0.22.0
+# sudo echo  "export PATH=$PATH:$(go env GOPATH)/bin" >> ~/.environment
+# source ~/.environment
+# kind version
 
-echo "install succussfully"
+# echo "install succussfully"
 
-source ~/.environment
+# source ~/.environment
+
+
+# For AMD64 / x86_64
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.26.0/kind-linux-amd64
+# For ARM64
+[ $(uname -m) = aarch64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.26.0/kind-linux-arm64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
