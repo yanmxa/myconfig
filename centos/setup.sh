@@ -26,27 +26,25 @@ else
 fi
 
 # oh-my-zsh
-echo ">>>>>>>>>>>>>>>>>> Verifying default shell >>>>>>>>>>>>>>>>>"
+echo ">>>>>>>>>>>>>>>>>> Install oh-my-zsh >>>>>>>>>>>>>>>>>"
 echo $SHELL
 
-echo ">>>>>>>>>>>>>>>>>> Installing oh-my-zsh >>>>>>>>>>>>>>>>>"
+echo "Installing oh-my-zsh"
 wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 
-echo ">>>>>>>>>>>>>>>>>> Configuring zsh >>>>>>>>>>>>>>>>>"
+echo "Configuring zsh"
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 
-echo ">>>>>>>>>>>>>>>>>> Installing zsh plugins >>>>>>>>>>>>>>>>>"
+echo "Installing zsh plugins"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 sed -i 's/plugins=(.*)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
 
-echo ">>>>>>>>>>>>>>>>>> Changing theme to cloud >>>>>>>>>>>>>>>>>"
 sed -i 's/ZSH_THEME=".*"/ZSH_THEME="robbyrussell"/' ~/.zshrc
 
-echo ">>>>>>>>>>>>>>>>>> Applying changes >>>>>>>>>>>>>>>>>"
 source ~/.zshrc
 
-echo ">>>>>>>>>>>>>>>>>> Zsh setup completed! >>>>>>>>>>>>>>>>>"
+echo ">>>>>>>>>>>>>>>>>> Install tmux >>>>>>>>>>>>>>>>>"
 
 # tmux
 sudo yum install libevent-devel -y
@@ -80,3 +78,24 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 # Remove (or comment out) plugin from the list.
 # Press `prefix + alt + u` (lowercase u as in uninstall) to remove the plugin.
 # All the plugins are installed to ~/.tmux/plugins/ so alternatively you can find plugin directory there and remove it.
+
+echo ">>>>>>>>>>>>>>>>>> Install golang >>>>>>>>>>>>>>>>>"
+
+wget https://dl.google.com/go/go1.24.0.linux-amd64.tar.gz
+sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.24.0.linux-amd64.tar.gz
+sudo rm go1.24.0.linux-amd64.tar.gz
+echo "export PATH=$PATH:/usr/local/go/bin" >>~/.zshrc
+source ~/.zshrc
+
+echo ">>>>>>>>>>>>>>>>>> Install KinD >>>>>>>>>>>>>>>>>"
+# For AMD64 / x86_64
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.27.0/kind-linux-amd64
+# For ARM64
+[ $(uname -m) = aarch64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.27.0/kind-linux-arm64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
