@@ -1,29 +1,7 @@
 #!/bin/bash
 
-# Install docker
-if ! command -v docker &>/dev/null; then
-  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Installing Docker >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-
-  # Install necessary dependencies
-  sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-
-  # Add Docker repo to yum
-  sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-
-  # Install Docker
-  sudo yum install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-
-  # Start Docker service and enable it on boot
-  sudo systemctl start docker
-  sudo systemctl enable docker
-
-  # Adjust permissions for Docker socket
-  sudo chmod 666 /var/run/docker.sock
-
-  echo "Docker installation complete."
-else
-  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Docker is already installed >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-fi
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Installing gcc wget jq curl >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+sudo yum install gcc wget jq curl vim cmake git -y
 
 # oh-my-zsh
 echo ">>>>>>>>>>>>>>>>>> Install oh-my-zsh >>>>>>>>>>>>>>>>>"
@@ -45,7 +23,6 @@ sed -i 's/ZSH_THEME=".*"/ZSH_THEME="robbyrussell"/' ~/.zshrc
 source ~/.zshrc
 
 echo ">>>>>>>>>>>>>>>>>> Install tmux >>>>>>>>>>>>>>>>>"
-
 # tmux
 sudo yum install libevent-devel -y
 sudo yum install ncurses-devel -y
@@ -79,12 +56,37 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 # Press `prefix + alt + u` (lowercase u as in uninstall) to remove the plugin.
 # All the plugins are installed to ~/.tmux/plugins/ so alternatively you can find plugin directory there and remove it.
 
+# Install docker
+if ! command -v docker &>/dev/null; then
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Installing Docker >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
+  # Install necessary dependencies
+  sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+
+  # Add Docker repo to yum
+  sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+  # Install Docker
+  sudo yum install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+  # Start Docker service and enable it on boot
+  sudo systemctl start docker
+  sudo systemctl enable docker
+
+  # Adjust permissions for Docker socket
+  sudo chmod 666 /var/run/docker.sock
+
+  echo "Docker installation complete."
+else
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Docker is already installed >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+fi
+
 echo ">>>>>>>>>>>>>>>>>> Install golang >>>>>>>>>>>>>>>>>"
 
 wget https://dl.google.com/go/go1.24.0.linux-amd64.tar.gz
 sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.24.0.linux-amd64.tar.gz
 sudo rm go1.24.0.linux-amd64.tar.gz
-echo "export PATH=$PATH:/usr/local/go/bin" >>~/.zshrc
+echo 'export PATH=$PATH:$(go env GOPATH)/bin' >>~/.zshrc
 source ~/.zshrc
 
 echo ">>>>>>>>>>>>>>>>>> Install KinD >>>>>>>>>>>>>>>>>"
@@ -95,7 +97,37 @@ echo ">>>>>>>>>>>>>>>>>> Install KinD >>>>>>>>>>>>>>>>>"
 chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
 
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+# Install kubectl
+echo ">>>>>>>>>>>>>>>>>> Install kubectl >>>>>>>>>>>>>>>>>"
+echo "This script will install kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl/) on your machine"
+if [[ "$(uname)" == "Linux" ]]; then
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+elif [[ "$(uname)" == "Darwin" ]]; then
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
+fi
+chmod +x ./kubectl
+sudo rm /usr/bin/kubectl 
+sudo mv ./kubectl /usr/bin/kubectl
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+# Install oc
+echo ">>>>>>>>>>>>>>>>>> Install oc >>>>>>>>>>>>>>>>>"
+git clone https://github.com/openshift/oc.git
+cd ./oc
+
+sudo dnf install krb5-devel -y
+# or
+# sudo dnf install gpgme-devel -y
+# sudo dnf install libassuan-devel -y
+make oc
+sudo mv ./oc /usr/local/bin
+cd ..
+
+# install ginkgo
+echo ">>>>>>>>>>>>>>>>>> Install ginkgo >>>>>>>>>>>>>>>>>"
+go install github.com/onsi/ginkgo/v2/ginkgo
+go get github.com/onsi/gomega/...
+
+# install utils
+echo "source $HOME/myconfig/env/func.sh" >>~/.zshrc
+source ~/.zshrc

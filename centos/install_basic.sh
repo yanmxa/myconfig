@@ -68,13 +68,6 @@ cd myconfig
 
 # go version
 
-echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Install kubectl and oc >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
-tar xvzf oc.tar.gz
-sudo mv ./oc /usr/bin/oc
-# sudo mv ./kubectl /usr/bin/kubectl
-sudo rm oc.tar.gz -f
-sudo rm README.md -f
 
 echo "This script will install kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl/) on your machine"
 if [[ "$(uname)" == "Linux" ]]; then
@@ -83,7 +76,7 @@ elif [[ "$(uname)" == "Darwin" ]]; then
     curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.28.1/bin/darwin/amd64/kubectl
 fi
 chmod +x ./kubectl
-sudo rm /usr/bin/kubectl
+sudo rm /usr/bin/kubectl 
 sudo mv ./kubectl /usr/bin/kubectl
 
 # echo "installing zsh"
