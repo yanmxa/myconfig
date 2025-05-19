@@ -4,8 +4,8 @@
 # alias myip="echo $(ifconfig |grep broadcast |awk '{print $2}')"
 
 # vpn
-alias vpn='otp token --prefix "6yhn\&UJM" --no-info && otp viscosity -o "ovpn-pek2-Alternative"'
-alias vpnb='otp token --prefix "6yhn\&UJM" --no-info && otp viscosity -o "Red Hat Global VPN (TCP Alternate)"'
+alias vpn='otp token --prefix "$(cat ~/.otp_prefix)" --no-info && otp viscosity -o "ovpn-pek2-Alternative"'
+alias vpnb='otp token --prefix "$(cat ~/.otp_prefix)" --no-info && otp viscosity -o "Red Hat Global VPN (TCP Alternate)"'
 
 alias rmi="sh ~/myconfig/select/docker-rmi.sh"
 alias hint="source ~/myconfig/centos/.hint"
